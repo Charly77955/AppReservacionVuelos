@@ -1,0 +1,31 @@
+$font-color-focus: rgb(207, 135, 0)
+$font-color-clear: rgb(211, 211, 211)
+$font-color-dark: rgb(211, 211, 211)
+
+$font-family-title: 'Pacifico', cursive
+$font-family-content: 'Montserrat', sans-serif
+$font-family-nav: 'Comfortaa', cursive
+
+@mixin Darktheme()
+    background: #0F2027
+    background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027)
+    background: linear-gradient(to right, #2C5364, #203A43, #0F2027)
+
+    color: white
+
+@mixin Cleartheme()
+    background: $color-background-clear1-gradient
+    color: black
+
+@mixin flex($direction: row, $justify: center, $items: center)
+    display: flex
+    flex-direction: $direction
+    justify-content: $justify
+    align-items: $items
+
+@mixin w-h($width: 100%, $height: 100%)
+    width: $width
+    height: $height
+
+*
+    font-family: $font-family-content
