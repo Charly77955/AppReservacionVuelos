@@ -1,4 +1,5 @@
-$font-color-focus: rgb(207, 135, 0)
+$font-color-focus: rgb(0, 17, 255)
+$font-color-disabled: rgb(177, 177, 177)
 $font-color-clear: rgb(211, 211, 211)
 $font-color-dark: rgb(211, 211, 211)
 
@@ -8,7 +9,7 @@ $font-family-nav: 'Comfortaa', cursive
 
 @mixin Darktheme()
     background: #0F2027
-    background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027)
+    background: -webkit-linear-gradient(to right, #858a8d, #203A43, #0F2027)
     background: linear-gradient(to right, #2C5364, #203A43, #0F2027)
 
     color: white
@@ -29,3 +30,6 @@ $font-family-nav: 'Comfortaa', cursive
 
 *
     font-family: $font-family-content
+
+.container
+    flex: 1
