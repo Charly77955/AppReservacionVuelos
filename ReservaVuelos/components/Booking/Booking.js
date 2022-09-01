@@ -51,7 +51,7 @@ export default class Booking extends Component {
               <TextInput placeholder="Select Location" />
             </View>
           </View>
-          <Pressable style={Appstyles.NextButton} disabled={true}>
+          <Pressable style={Appstyles.NextButton}>
             <Text style={Appstyles.NextButtonText}>Next</Text>
           </Pressable>
         </View>

@@ -1,8 +1,8 @@
 import React from 'react';
-import {StyleSheet, SafeAreaView} from 'react-native';
+import {SafeAreaView} from 'react-native';
 
-import MainStack from './components/MainStack';
 import Appstyles from './components/GeneralStyles/Styles.sass';
+import MainStack from './components/MainStack';
 
 export default function App() {
   return (
