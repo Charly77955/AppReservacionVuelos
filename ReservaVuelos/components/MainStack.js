@@ -2,8 +2,8 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import Booking from './Booking/Booking';
-import MyFlightsScreen from './MyFlightsScreen/MyFlightsScreen';
+
+import Booking from './Booking/Booking.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,7 +14,7 @@ function MainStack() {
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="MyFlightsScreen" component={MyFlightsScreen} />
+        <Stack.Screen name="Booking" component={Booking} />
       </Stack.Navigator>
     </NavigationContainer>
   );
