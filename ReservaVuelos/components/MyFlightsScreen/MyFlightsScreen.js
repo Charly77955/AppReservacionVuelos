@@ -1,8 +1,11 @@
 import * as React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import MyFlightsStyles from './MyFlightsScreen.sass';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Button} from '@rneui/themed';
 
-export default MyFlightsScreen = () => {
+export default MyFlightsScreen = props => {
   return (
     <View>
       <Text style={MyFlightsStyles.title}>My flights</Text>
@@ -23,7 +26,7 @@ export default MyFlightsScreen = () => {
         <View style={MyFlightsStyles.lineEnd}></View>
       </TouchableOpacity>
       <View style={MyFlightsStyles.containerAdd}>
-        <Text>+</Text>
+        <Button onPress={() => props.navigation.navigate('Booking')}></Button>
       </View>
     </View>
   );
