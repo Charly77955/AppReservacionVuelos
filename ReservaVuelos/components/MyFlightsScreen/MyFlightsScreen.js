@@ -3,8 +3,7 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import MyFlightsStyles from './MyFlightsScreen.sass';
 
 export default MyFlightsScreen = () => {
-    return (
-        
+    return (    
         <View>
             <Text style={MyFlightsStyles.title}>My flights</Text>
             <TouchableOpacity>
@@ -22,7 +21,6 @@ export default MyFlightsScreen = () => {
                     <Text style={MyFlightsStyles.details}>2 passengers</Text>
                 </View>
                 <View style={MyFlightsStyles.lineEnd}></View>
-
              </TouchableOpacity>
             <View style={MyFlightsStyles.containerAdd}>
                 <Text>+</Text>
