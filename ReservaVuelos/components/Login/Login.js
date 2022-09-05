@@ -11,32 +11,28 @@ export default function Login() {
     <SafeAreaView>
       <View style={Appstyles.LoginBody}>
         <Text style={Appstyles.TextSign}>Sign Up</Text>
-      </View>
-      <View>
-        <Text style={Appstyles.FirstName}>First Name</Text>
-        <TextInput style={Appstyles.inputName} placeholder="Write your name" />
-        <TextInput
-          style={Appstyles.inputEmail}
-          placeholder="Write your email"
-        />
-        <Text style={Appstyles.Email}>Email</Text>
-        <TextInput
-          style={Appstyles.inputPass}
-          placeholder="Write your password"
-        />
-        <Text style={Appstyles.Password}>Password</Text>
-        <Text style={Appstyles.Require}>
-          Use 8 or more characters with a mix of letters, numbers and simbols
-        </Text>
-        <View style={Appstyles.caja1}>
+        <View>
+          <Text style={Appstyles.Label}>First Name</Text>
+          <TextInput style={Appstyles.Input} placeholder="Write your name" />
+          <Text style={Appstyles.Label}>Email</Text>
+          <TextInput style={Appstyles.Input} placeholder="Write your email" />
+
+          <Text style={Appstyles.Label}>Password</Text>
+          <TextInput
+            style={Appstyles.InputPassword}
+            placeholder="Write your password"
+          />
+          <Text style={Appstyles.Require}>
+            Use 8 or more characters with a mix of letters, numbers and simbols
+          </Text>
+        </View>
+        <View style={Appstyles.caja}>
           <CheckBox
             center
             title="I agree to the Terms and Privacy Policy"
             checked={check1}
             onPress={() => setCheck1(!check1)}
           />
-        </View>
-        <View style={Appstyles.Caja1}>
           <CheckBox
             center
             title="Suscribe for select product updates"
@@ -45,14 +41,12 @@ export default function Login() {
           />
         </View>
 
-        <View style={Appstyles.ButtonSign}>
-          <Button title="Sign Up" disabled={true} />
+        <View style={Appstyles.ButtonSignContainer}>
+          <Button title="Sign Up" disabled={false} color="blue" />
         </View>
-        <View>
-          <Button 
-          style={Appstyles.ButtonSignWithG}
-          title="Sing Up with Google"s
-          disabled={true} />
+        <Text>or</Text>
+        <View style={Appstyles.ButtonSignContainer}>
+          <Button title="Sing Up with Google" color="blue" disabled={true} />
         </View>
       </View>
     </SafeAreaView>
