@@ -2,8 +2,10 @@ import React, {Component, useState} from 'react';
 import {Text, View, StyleSheet, SafeAreaView, TextInput} from 'react-native';
 import Appstyles from './Login.sass';
 import {CheckBox, Button} from '@rneui/themed';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-export default function Login() {
+export default function Login(props) {
   const [check1, setCheck1] = useState(false);
   const [check2, setCheck2] = useState(false);
 
@@ -42,7 +44,12 @@ export default function Login() {
         </View>
 
         <View style={Appstyles.ButtonSignContainer}>
-          <Button title="Sign Up" disabled={false} color="blue" />
+          <Button
+            title="Sign Up"
+            disabled={false}
+            color="blue"
+            onPress={() => props.navigation.navigate('Home')}
+          />
         </View>
         <Text>or</Text>
         <View style={Appstyles.ButtonSignContainer}>

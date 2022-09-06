@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, TextInput, Pressable} from 'react-native';
 import Appstyles from './Booking.sass';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 export default class Booking extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.fromCountry = 'Serbia';
     this.fromCity = 'BEG';
     this.toCountry = 'Netherlands';
@@ -16,7 +18,9 @@ export default class Booking extends Component {
   render() {
     return (
       <View style={Appstyles.BookingBody}>
-        <Pressable style={Appstyles.BackButton}>
+        <Pressable
+          onPress={() => this.props.navigation.goBack()}
+          style={Appstyles.BackButton}>
           <Text style={Appstyles.BackButtonText}>Back</Text>
         </Pressable>
         <View style={Appstyles.BookingBodyContainer}>
