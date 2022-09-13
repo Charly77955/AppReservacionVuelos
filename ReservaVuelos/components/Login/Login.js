@@ -1,13 +1,49 @@
-import React, {Component, useState} from 'react';
-import {Text, View, StyleSheet, SafeAreaView, TextInput} from 'react-native';
+import React, { useState} from 'react';
+import {
+  Text, 
+  View,  
+  SafeAreaView, 
+  TextInput, 
+  TouchableOpacity,
+} from 'react-native';
 import Appstyles from './Login.sass';
-import {CheckBox, Button} from '@rneui/themed';
+import {CheckBox, Button, Icon} from '@rneui/themed';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 export default function Login(props) {
   const [check1, setCheck1] = useState(false);
   const [check2, setCheck2] = useState(false);
+
+  const [data, setData] = useState({
+    password: '',
+    secureTextEntry: true,
+    isValidPassword: true,
+  })
+
+  const handlePasswordChange = (value) => {
+    let check = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/
+    if( value.match(check) ) {
+        setData({
+            ...data,
+            password: value,
+            isValidPassword: true
+        })
+    } else {
+        setData({
+            ...data,
+            password: value,
+            isValidPassword: false
+        })
+    }
+  }
+
+  const updateSecureTextEntry = () => {
+    setData({
+        ...data,
+        secureTextEntry: !data.secureTextEntry
+    });
+  }
 
   return (
     <SafeAreaView>
@@ -18,15 +54,44 @@ export default function Login(props) {
           <TextInput style={Appstyles.Input} placeholder="Write your name" />
           <Text style={Appstyles.Label}>Email</Text>
           <TextInput style={Appstyles.Input} placeholder="Write your email" />
-
           <Text style={Appstyles.Label}>Password</Text>
-          <TextInput
-            style={Appstyles.InputPassword}
-            placeholder="Write your password"
-          />
-          <Text style={Appstyles.Require}>
-            Use 8 or more characters with a mix of letters, numbers and simbols
-          </Text>
+          <View style={Appstyles.password}>
+            <TextInput
+              autoComplete='password'
+              placeholder='Write your password'
+              secureTextEntry={data.secureTextEntry ? true : false}
+              autoCapitalize='none'
+              onChangeText={(val) => handlePasswordChange(val)}
+            />
+            <TouchableOpacity
+              onPress={updateSecureTextEntry}
+            >
+              {data.secureTextEntry ? 
+                <Icon
+                  name='eye-slash'
+                  type='font-awesome-5'
+                  size={20}
+                  color='#5C6DF8'
+                />
+              :
+                <Icon
+                  name='eye'
+                  type='font-awesome-5'  
+                  size={20}
+                  color='#5C6DF8'
+                 />
+              }
+            </TouchableOpacity>
+          </View>
+          {data.isValidPassword ? 
+            <Text style={Appstyles.Require}>
+              Use 8 or more characters with a mix of letters, numbers and simbols
+            </Text>
+          : 
+            <Text style={Appstyles.errorMsg}>
+              Password must be 8 characters long with a mix of letters, numbers and simbols.
+            </Text>
+          }
         </View>
         <View style={Appstyles.caja}>
           <CheckBox
@@ -42,7 +107,6 @@ export default function Login(props) {
             onPress={() => setCheck2(!check2)}
           />
         </View>
-
         <View style={Appstyles.ButtonSignContainer}>
           <Button
             title="Sign Up"
