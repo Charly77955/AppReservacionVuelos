@@ -4,6 +4,7 @@ import {
   View,  
   SafeAreaView, 
   TextInput, 
+  TouchableOpacity,
 } from 'react-native';
 import Appstyles from './Login.sass';
 import {CheckBox, Button, Icon} from '@rneui/themed';
@@ -37,6 +38,13 @@ export default function Login(props) {
     }
   }
 
+  const updateSecureTextEntry = () => {
+    setData({
+        ...data,
+        secureTextEntry: !data.secureTextEntry
+    });
+  }
+
   return (
     <SafeAreaView>
       <View style={Appstyles.LoginBody}>
@@ -55,6 +63,25 @@ export default function Login(props) {
               autoCapitalize='none'
               onChangeText={(val) => handlePasswordChange(val)}
             />
+            <TouchableOpacity
+              onPress={updateSecureTextEntry}
+            >
+              {data.secureTextEntry ? 
+                <Icon
+                  name='eye-slash'
+                  type='font-awesome-5'
+                  size={20}
+                  color='#5C6DF8'
+                />
+              :
+                <Icon
+                  name='eye'
+                  type='font-awesome-5'  
+                  size={20}
+                  color='#5C6DF8'
+                 />
+              }
+            </TouchableOpacity>
           </View>
           {data.isValidPassword ? 
             <Text style={Appstyles.Require}>
