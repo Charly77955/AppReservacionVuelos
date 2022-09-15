@@ -12,6 +12,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DatePicker from 'react-native-date-picker';
 import Moment from 'moment';
+import FlightClass from '../Flight.class';
 
 export default function App(props) {
   const [fromCountry, setFromCountry] = useState('Country1');
@@ -23,6 +24,21 @@ export default function App(props) {
   const [screen, setScreen] = useState(0);
 
   let inputFilled = false;
+
+  function finish() {
+    const fight = new FlightClass();
+    flight.addData([
+      -2,
+      fromCity,
+      fromCountry,
+      toCity,
+      toCountry,
+      flightDate,
+      passengers,
+    ]);
+    flight.toFireStore();
+    props.navigation.goBack();
+  }
 
   function renderSwitch() {
     switch (screen) {
@@ -167,6 +183,7 @@ export default function App(props) {
             style={Appstyles.NextButton}
             onPress={() => {
               setScreen(screen + 1);
+              finish();
               inputFilled = false;
             }}
             //disabled={!inputFilled}
