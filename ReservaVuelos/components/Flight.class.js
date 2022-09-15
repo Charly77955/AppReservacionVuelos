@@ -1,6 +1,15 @@
 import React from 'react';
+import {
+  getFirestore,
+  query,
+  getDocs,
+  collection,
+  where,
+  addDoc,
+} from 'firebase/firestore';
+import {db} from '../database-service/ReservacionVuelos.service';
 
-export class DocumentClass extends React.Component {
+export class FlightClass extends React.Component {
   constructor() {
     super(props);
     this.state = {
@@ -25,7 +34,7 @@ export class DocumentClass extends React.Component {
   }
 
   async toFireStore() {
-    await addDoc(collection(db, 'flight'), {
+    await addDoc(collection(db, 'Vuelos'), {
       iid: this.state.iid,
       fromCity: this.state.fromCity,
       fromCountry: this.state.fromCountry,
