@@ -10,7 +10,7 @@ import Appstyles from './Login.sass';
 import {CheckBox, Button, Icon} from '@rneui/themed';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import { firebaseConfig } from '../ConfigFire/config'
+import { firebaseConfig } from '../ConfigFire/config';
 import { initializeApp } from 'firebase/app';
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
 
@@ -91,8 +91,8 @@ export default function Login(props) {
           
           <TextInput style={Appstyles.Input}
             placeholder="Write your email"
-            onChangeText={(text) => setEmail(text)}
-          >{email}</TextInput>
+            onChangeText={(email) => setEmail(email)}
+          ></TextInput>
 
           <Text style={Appstyles.Label}>Password</Text>
           <View style={Appstyles.password}>
@@ -157,7 +157,7 @@ export default function Login(props) {
         <View style={Appstyles.ButtonSignContainer}>
           <Button
             title="Login"
-            disabled={false}
+            disabled={true}
             color="blue"
             onPress={() => props.navigation.navigate('Home')}
           />
