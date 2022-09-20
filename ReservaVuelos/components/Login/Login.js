@@ -10,17 +10,52 @@ import Appstyles from './Login.sass';
 import {CheckBox, Button, Icon} from '@rneui/themed';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { firebaseConfig } from '../ConfigFire/config';
+import { initializeApp } from 'firebase/app';
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
+
 
 export default function Login(props) {
+  
   const [check1, setCheck1] = useState(false);
   const [check2, setCheck2] = useState(false);
+  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
   const [data, setData] = useState({
     password: '',
     secureTextEntry: true,
     isValidPassword: true,
   })
-
+  
+  const handleCreateAcount = () =>{
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential)=>{
+      Alert.alert('Acount created!')
+      const user = userCredential.user;
+      Alert.alert(user)
+      Button.disabled(false)
+    })
+    .catch(error => {
+      Alert.alert(error)
+    })
+  }
+  const handleSignIn = () =>{
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential)=>{
+      alert('Signed in!')
+      const user = userCredential.user;
+      Alert.alert(user)
+      navigation.navigate('Home')
+    })
+    .catch(error => {
+      Alert.alert(error)
+    })
+  }
   const handlePasswordChange = (value) => {
     let check = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/
     if( value.match(check) ) {
@@ -53,7 +88,12 @@ export default function Login(props) {
           <Text style={Appstyles.Label}>First Name</Text>
           <TextInput style={Appstyles.Input} placeholder="Write your name" />
           <Text style={Appstyles.Label}>Email</Text>
-          <TextInput style={Appstyles.Input} placeholder="Write your email" />
+          
+          <TextInput style={Appstyles.Input}
+            placeholder="Write your email"
+            onChangeText={(email) => setEmail(email)}
+          ></TextInput>
+
           <Text style={Appstyles.Label}>Password</Text>
           <View style={Appstyles.password}>
             <TextInput
@@ -109,15 +149,22 @@ export default function Login(props) {
         </View>
         <View style={Appstyles.ButtonSignContainer}>
           <Button
-            title="Sign Up"
-            disabled={false}
+            title="Register"
+            color="blue"
+            onPress={handleCreateAcount}
+          /> 
+          </View>
+        <View style={Appstyles.ButtonSignContainer}>
+          <Button
+            title="Login"
+            disabled={true}
             color="blue"
             onPress={() => props.navigation.navigate('Home')}
           />
         </View>
         <Text>or</Text>
         <View style={Appstyles.ButtonSignContainer}>
-          <Button title="Sing Up with Google" color="blue" disabled={true} />
+          <Button title="Sing Up with Google" color="blue" disabled={false} />
         </View>
       </View>
     </SafeAreaView>
