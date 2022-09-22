@@ -1,12 +1,12 @@
-import React, { useState} from 'react';
-import {
-  Text, 
-  View,  
-  SafeAreaView, 
-  TextInput, 
-  TouchableOpacity,
-} from 'react-native';
-import Appstyles from './Login.sass';
+import React, {useState} from 'react';
+import {Text, 
+        View, 
+        StyleSheet, 
+        SafeAreaView, 
+        TextInput, 
+        TouchableOpacity,
+        Alert} from 'react-native';
+import Appstyles from './Login.sass'
 import {CheckBox, Button, Icon} from '@rneui/themed';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -16,48 +16,49 @@ import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} fro
 
 
 export default function Login(props) {
-  
   const [check1, setCheck1] = useState(false);
   const [check2, setCheck2] = useState(false);
-  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
 
   const [data, setData] = useState({
     password: '',
     secureTextEntry: true,
     isValidPassword: true,
   })
-  
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
   const handleCreateAcount = () =>{
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential)=>{
-      Alert.alert('Acount created!')
+      alert('Acount created!')
       const user = userCredential.user;
-      Alert.alert(user)
-      Button.disabled(false)
+      console.log(user)
     })
     .catch(error => {
-      Alert.alert(error)
+      alert(error)
     })
   }
+
   const handleSignIn = () =>{
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential)=>{
       alert('Signed in!')
       const user = userCredential.user;
-      Alert.alert(user)
-      navigation.navigate('Home')
+      props.navigation.navigate('Home')
+      console.log(userCredential)
     })
     .catch(error => {
-      Alert.alert(error)
+      alert(error)
     })
   }
+  
   const handlePasswordChange = (value) => {
     let check = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/
+    setPassword(value)
     if( value.match(check) ) {
         setData({
             ...data,
@@ -80,6 +81,8 @@ export default function Login(props) {
     });
   }
 
+
+  
   return (
     <SafeAreaView>
       <View style={Appstyles.LoginBody}>
@@ -88,11 +91,10 @@ export default function Login(props) {
           <Text style={Appstyles.Label}>First Name</Text>
           <TextInput style={Appstyles.Input} placeholder="Write your name" />
           <Text style={Appstyles.Label}>Email</Text>
-          
           <TextInput style={Appstyles.Input}
             placeholder="Write your email"
-            onChangeText={(email) => setEmail(email)}
-          ></TextInput>
+            onChangeText={(text) => setEmail(text)}
+          >{email}</TextInput>
 
           <Text style={Appstyles.Label}>Password</Text>
           <View style={Appstyles.password}>
@@ -102,10 +104,11 @@ export default function Login(props) {
               secureTextEntry={data.secureTextEntry ? true : false}
               autoCapitalize='none'
               onChangeText={(val) => handlePasswordChange(val)}
-            />
+
+            >{password}</TextInput>
             <TouchableOpacity
               onPress={updateSecureTextEntry}
-            >
+              >
               {data.secureTextEntry ? 
                 <Icon
                   name='eye-slash'
@@ -152,21 +155,27 @@ export default function Login(props) {
             title="Register"
             color="blue"
             onPress={handleCreateAcount}
-          /> 
-          </View>
+          />
+        </View>
+
         <View style={Appstyles.ButtonSignContainer}>
           <Button
             title="Login"
-            disabled={true}
             color="blue"
-            onPress={() => props.navigation.navigate('Home')}
+            disabled={false}
+            onPress={handleSignIn}
           />
         </View>
         <Text>or</Text>
         <View style={Appstyles.ButtonSignContainer}>
-          <Button title="Sing Up with Google" color="blue" disabled={false} />
+          <Button title="Sing Up with Google" color="blue"  />
         </View>
       </View>
     </SafeAreaView>
   );
 }
+
+
+
+
+
