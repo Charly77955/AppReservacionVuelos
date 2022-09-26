@@ -1,15 +1,12 @@
 import React, {useState} from 'react';
 import {Text, 
         View, 
-        StyleSheet, 
         SafeAreaView, 
         TextInput, 
         TouchableOpacity,
         Alert} from 'react-native';
 import Appstyles from './Login.sass'
 import {CheckBox, Button, Icon} from '@rneui/themed';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { firebaseConfig } from '../ConfigFire/config';
 import { initializeApp } from 'firebase/app';
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
@@ -166,8 +163,3 @@ export default function Login(props) {
     </SafeAreaView>
   );
 }
-
-
-
-
-
