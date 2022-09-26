@@ -36,26 +36,22 @@ export default function Login(props) {
     .then((userCredential)=>{
       alert('Acount created!')
       const user = userCredential.user;
-      console.log(user)
     })
     .catch(error => {
       alert(error)
     })
   }
-
   const handleSignIn = () =>{
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential)=>{
       alert('Signed in!')
       const user = userCredential.user;
       props.navigation.navigate('Home')
-      console.log(userCredential)
     })
     .catch(error => {
       alert(error)
     })
   }
-  
   const handlePasswordChange = (value) => {
     let check = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/
     setPassword(value)
@@ -73,16 +69,12 @@ export default function Login(props) {
         })
     }
   }
-
   const updateSecureTextEntry = () => {
     setData({
         ...data,
         secureTextEntry: !data.secureTextEntry
     });
   }
-
-
-  
   return (
     <SafeAreaView>
       <View style={Appstyles.LoginBody}>
