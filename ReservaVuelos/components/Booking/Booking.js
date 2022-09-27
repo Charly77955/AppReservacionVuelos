@@ -29,7 +29,6 @@ export default function App(props) {
     setScreen(screen + 1);
     if (screen != 3 || inputFilled == false) return;
     const flight = new FlightClass(
-      -2,
       fromCity,
       fromCountry,
       toCity,

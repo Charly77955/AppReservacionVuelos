@@ -1,39 +1,35 @@
-import {initializeApp} from 'firebase/app';
-import {
-  getFirestore,
-  query,
-  getDocs,
-  collection,
-  where,
-  addDoc,
-} from 'firebase/firestore';
-const firebaseConfig = {
-  apiKey: 'AIzaSyA2nEcmG7Gv3g2yXekmuZXpX2hxDyNw0xo',
-  authDomain: 'reservacion-vuelos-6b622.firebaseapp.com',
-  projectId: 'reservacion-vuelos-6b622',
-  storageBucket: 'reservacion-vuelos-6b622.appspot.com',
-  messagingSenderId: '970076996102',
-  appId: '1:970076996102:web:7dcb13025f43d4e36c3987',
-  measurementId: 'G-V16MGJVW71',
-};
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
-const FlightToFireStore = async flight => {
-  try {
-    console.log(flight);
-    await addDoc(collection(db, 'Vuelos'), {
-      iid: flight.iid,
-      fromCity: flight.fromCity,
-      fromCountry: flight.fromCountry,
-      toCity: flight.toCity,
-      toCountry: flight.toCountry,
-      flightDate: flight.flightDate,
-      passengers: flight.passengers,
+const db = firestore();
+
+export const saveFlight = async (state, navigation) => {
+  await db
+    .collection('Viajes')
+    .add({
+      origin: [state.fromCity, state.fromCountry],
+      destiny: [state.toCity, state.toCountry],
+      date: state.flightDate,
+      passengers: state.passengers,
+      //uid: current.uid,
+    })
+    .then(() => {
+      navigation.navigate('Home');
     });
-  } catch (err) {
-    console.error(err);
-    alert(err.message);
+};
+
+export const getData = async () => {
+  try {
+    const arrayFlights = [];
+    const usersQuerySnapshot = await firestore()
+      .collection('Viajes')
+      //.where('uid', '==', current.uid)
+      .get();
+    usersQuerySnapshot.forEach(documentSnapshot => {
+      arrayFlights.push({id: documentSnapshot.id, ...documentSnapshot.data()});
+    });
+    return arrayFlights;
+  } catch (error) {
+    const errorName = 'failure when trying to display flights';
   }
 };
-export {FlightToFireStore};
