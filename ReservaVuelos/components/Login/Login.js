@@ -7,8 +7,6 @@ import {Text,
         Alert} from 'react-native';
 import Appstyles from './Login.sass'
 import {CheckBox, Button, Icon} from '@rneui/themed';
-import { firebaseConfig } from '../ConfigFire/config';
-import { initializeApp } from 'firebase/app';
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
 
 
