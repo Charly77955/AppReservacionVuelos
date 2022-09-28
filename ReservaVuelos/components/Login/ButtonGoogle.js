@@ -3,7 +3,7 @@ import {View, Button} from 'react-native';
 import {
   GoogleSignin,
   GoogleSigninButton,
-} from '@react-native-community/google-signin';
+} from '@react-native-google-signin/google-signin';
 import {WEB_CLIENT_ID} from '@env';
 
 export const ButtonGoogle = () => {

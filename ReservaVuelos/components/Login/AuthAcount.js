@@ -1,10 +1,9 @@
 import React from 'react';
 import auth from '@react-native-firebase/auth';
-import {getAuth, 
+import { 
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword} from 'firebase/auth';
 
-const auth = getAuth(auth);
   export const handleCreateAcount = () =>{
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential)=>{
