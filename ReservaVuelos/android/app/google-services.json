@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "461005498193",
+    "project_id": "reserva-vuelos2",
+    "storage_bucket": "reserva-vuelos2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461005498193:android:9f202d1d555d514dc1d570",
+        "android_client_info": {
+          "package_name": "com.reservavuelos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461005498193-d1ta4jsau4ol4jiljcgtps0enq86na5i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.reservavuelos",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "461005498193-4s77ebsk8tmqv35cmfl6o8eb02q1npnh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAa2JS381IQ5UfF8x9rDXxiSUHvn5RW3rM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461005498193-4s77ebsk8tmqv35cmfl6o8eb02q1npnh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
