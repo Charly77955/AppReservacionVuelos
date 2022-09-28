@@ -3,50 +3,23 @@ import {Text,
         View, 
         SafeAreaView, 
         TextInput, 
-        TouchableOpacity,
-        Alert} from 'react-native';
+        TouchableOpacity} from 'react-native';
 import Appstyles from './Login.sass'
+import {ButtonGoogle} from './ButtonGoogle'
 import {CheckBox, Button, Icon} from '@rneui/themed';
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
+import { handleCreateAcount, handleSignIn } from './AuthAcount';
 
-
-export default function Login(props) {
+export default function Login() {
   const [check1, setCheck1] = useState(false);
   const [check2, setCheck2] = useState(false);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [data, setData] = useState({
     password: '',
     secureTextEntry: true,
     isValidPassword: true,
   })
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  const handleCreateAcount = () =>{
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential)=>{
-      alert('Acount created!')
-      const user = userCredential.user;
-    })
-    .catch(error => {
-      alert(error)
-    })
-  }
-  const handleSignIn = () =>{
-    signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential)=>{
-      alert('Signed in!')
-      const user = userCredential.user;
-      props.navigation.navigate('Home')
-    })
-    .catch(error => {
-      alert(error)
-    })
-  }
+  
   const handlePasswordChange = (value) => {
     let check = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/
     setPassword(value)
@@ -91,11 +64,9 @@ export default function Login(props) {
               secureTextEntry={data.secureTextEntry ? true : false}
               autoCapitalize='none'
               onChangeText={(val) => handlePasswordChange(val)}
-
-            >{password}</TextInput>
+              >{password}</TextInput>
             <TouchableOpacity
-              onPress={updateSecureTextEntry}
-              >
+              onPress={updateSecureTextEntry}>
               {data.secureTextEntry ? 
                 <Icon
                   name='eye-slash'
@@ -128,21 +99,18 @@ export default function Login(props) {
             center
             title="I agree to the Terms and Privacy Policy"
             checked={check1}
-            onPress={() => setCheck1(!check1)}
-          />
+            onPress={() => setCheck1(!check1)}/>
           <CheckBox
             center
             title="Suscribe for select product updates"
             checked={check2}
-            onPress={() => setCheck2(!check2)}
-          />
+            onPress={() => setCheck2(!check2)}/>
         </View>
         <View style={Appstyles.ButtonSignContainer}>
           <Button
             title="Register"
             color="blue"
-            onPress={handleCreateAcount}
-          />
+            onPress={handleCreateAcount}/>
         </View>
 
         <View style={Appstyles.ButtonSignContainer}>
@@ -150,12 +118,11 @@ export default function Login(props) {
             title="Login"
             color="blue"
             disabled={false}
-            onPress={handleSignIn}
-          />
+            onPress={handleSignIn}/>
         </View>
         <Text>or</Text>
         <View style={Appstyles.ButtonSignContainer}>
-          <Button title="Sing Up with Google" color="blue"  />
+          <ButtonGoogle/>
         </View>
       </View>
     </SafeAreaView>
