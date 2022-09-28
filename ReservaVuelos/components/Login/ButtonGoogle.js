@@ -1,25 +1,30 @@
-import React, {Button} from 'react'
-import { AuthContext } from '../navigation/AuthProvider';
+import React from 'react';
+import {View, Button} from 'react-native';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+} from '@react-native-community/google-signin';
+import {WEB_CLIENT_ID} from '@env';
 
-const ButtonGoogle = () => {
-  //...
-  const {login, googleLogin} = useContext(AuthContext);
-
-  return (
-    <View style={styles.container}>
-      //...
-
-      <Button 
-        buttonTitle="Sign In with Google"
-        btnType="google"
-        color="#de4d41"
-        backgroundColor="#f5e7ea"
-        onPress={() => googleLogin()}
-      />
-
-      //...
-    </View>
-  );
-};
-
-export default ButtonGoogle;
+export const ButtonGoogle = () => {
+    return (
+      <View>
+        <GoogleSigninButton
+          title={'Login with Google'}
+          onPress={() => {
+            GoogleSignin.configure({
+              androidClientId: WEB_CLIENT_ID,
+            });
+            async function signIn() {
+              try {
+                await GoogleSignin.hasPlayServices();
+                const userInfo = await GoogleSignin.signIn();
+              } catch (error) {
+              }
+            }
+            signIn();
+          }}
+        />
+      </View>
+    );
+  };
