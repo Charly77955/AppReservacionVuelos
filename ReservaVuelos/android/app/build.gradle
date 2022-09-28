@@ -2,6 +2,7 @@ apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
 
+
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
  * and bundleReleaseJsAndAssets).
@@ -76,6 +77,9 @@ import com.android.build.OutputFile
  *   extraPackagerArgs: []
  * ]
  */
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services' // <- Add this line
+
 
 project.ext.react = [
     enableHermes: false,  // clean and rebuild if changing
@@ -257,7 +261,14 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:30.4.1')
 
+    // Add the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-auth'
+
+    implementation 'com.google.android.gms:play-services-auth:20.3.0'
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 

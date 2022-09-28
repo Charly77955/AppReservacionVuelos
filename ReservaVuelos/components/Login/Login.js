@@ -1,63 +1,28 @@
-import React, { useState} from 'react';
-import {
-  Text, 
-  View,  
-  SafeAreaView, 
-  TextInput, 
-  TouchableOpacity,
-} from 'react-native';
-import Appstyles from './Login.sass';
+import React, {useState} from 'react';
+import {Text, 
+        View, 
+        SafeAreaView, 
+        TextInput, 
+        TouchableOpacity} from 'react-native';
+import Appstyles from './Login.sass'
+import {ButtonGoogle} from './ButtonGoogle'
 import {CheckBox, Button, Icon} from '@rneui/themed';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import { firebaseConfig } from '../ConfigFire/config';
-import { initializeApp } from 'firebase/app';
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
+import { handleCreateAcount, handleSignIn } from './AuthAcount';
 
-
-export default function Login(props) {
-  
+export default function Login() {
   const [check1, setCheck1] = useState(false);
   const [check2, setCheck2] = useState(false);
-  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
   const [data, setData] = useState({
     password: '',
     secureTextEntry: true,
     isValidPassword: true,
   })
   
-  const handleCreateAcount = () =>{
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential)=>{
-      Alert.alert('Acount created!')
-      const user = userCredential.user;
-      Alert.alert(user)
-      Button.disabled(false)
-    })
-    .catch(error => {
-      Alert.alert(error)
-    })
-  }
-  const handleSignIn = () =>{
-    signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential)=>{
-      alert('Signed in!')
-      const user = userCredential.user;
-      Alert.alert(user)
-      navigation.navigate('Home')
-    })
-    .catch(error => {
-      Alert.alert(error)
-    })
-  }
   const handlePasswordChange = (value) => {
     let check = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/
+    setPassword(value)
     if( value.match(check) ) {
         setData({
             ...data,
@@ -72,14 +37,12 @@ export default function Login(props) {
         })
     }
   }
-
   const updateSecureTextEntry = () => {
     setData({
         ...data,
         secureTextEntry: !data.secureTextEntry
     });
   }
-
   return (
     <SafeAreaView>
       <View style={Appstyles.LoginBody}>
@@ -88,11 +51,10 @@ export default function Login(props) {
           <Text style={Appstyles.Label}>First Name</Text>
           <TextInput style={Appstyles.Input} placeholder="Write your name" />
           <Text style={Appstyles.Label}>Email</Text>
-          
           <TextInput style={Appstyles.Input}
             placeholder="Write your email"
-            onChangeText={(email) => setEmail(email)}
-          ></TextInput>
+            onChangeText={(text) => setEmail(text)}
+          >{email}</TextInput>
 
           <Text style={Appstyles.Label}>Password</Text>
           <View style={Appstyles.password}>
@@ -102,10 +64,9 @@ export default function Login(props) {
               secureTextEntry={data.secureTextEntry ? true : false}
               autoCapitalize='none'
               onChangeText={(val) => handlePasswordChange(val)}
-            />
+              >{password}</TextInput>
             <TouchableOpacity
-              onPress={updateSecureTextEntry}
-            >
+              onPress={updateSecureTextEntry}>
               {data.secureTextEntry ? 
                 <Icon
                   name='eye-slash'
@@ -138,33 +99,30 @@ export default function Login(props) {
             center
             title="I agree to the Terms and Privacy Policy"
             checked={check1}
-            onPress={() => setCheck1(!check1)}
-          />
+            onPress={() => setCheck1(!check1)}/>
           <CheckBox
             center
             title="Suscribe for select product updates"
             checked={check2}
-            onPress={() => setCheck2(!check2)}
-          />
+            onPress={() => setCheck2(!check2)}/>
         </View>
         <View style={Appstyles.ButtonSignContainer}>
           <Button
             title="Register"
             color="blue"
-            onPress={handleCreateAcount}
-          /> 
-          </View>
+            onPress={handleCreateAcount}/>
+        </View>
+
         <View style={Appstyles.ButtonSignContainer}>
           <Button
             title="Login"
-            disabled={true}
             color="blue"
-            onPress={() => props.navigation.navigate('Home')}
-          />
+            disabled={false}
+            onPress={handleSignIn}/>
         </View>
         <Text>or</Text>
         <View style={Appstyles.ButtonSignContainer}>
-          <Button title="Sing Up with Google" color="blue" disabled={false} />
+          <ButtonGoogle/>
         </View>
       </View>
     </SafeAreaView>
