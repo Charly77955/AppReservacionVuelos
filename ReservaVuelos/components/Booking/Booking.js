@@ -12,6 +12,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DatePicker from 'react-native-date-picker';
 import Moment from 'moment';
+import FlightClass from '../Flight.class';
 
 export default function App(props) {
   const [fromCountry, setFromCountry] = useState('Country1');
@@ -19,10 +20,30 @@ export default function App(props) {
   const [toCountry, setToCountry] = useState('Country2');
   const [toCity, setToCity] = useState('City2');
   const [date, setDate] = useState(new Date());
-  const [pasengers, setPasengers] = useState(0);
+  const [passengers, setPassengers] = useState(0);
   const [screen, setScreen] = useState(0);
 
   let inputFilled = false;
+
+  function pressed() {
+    setScreen(screen + 1);
+    if (screen != 3 || inputFilled == false) return;
+    const flight = new FlightClass(
+      fromCity,
+      fromCountry,
+      toCity,
+      toCountry,
+      date,
+      passengers,
+    );
+    flight.toFireStore();
+    inputFilled = false;
+  }
+
+  function btnBackPressed() {
+    if (screen > 0) setScreen(screen - 1);
+    else props.navigation.navigate('Home');
+  }
 
   function renderSwitch() {
     switch (screen) {
@@ -88,7 +109,7 @@ export default function App(props) {
               <TextInput
                 keyboardType="numeric"
                 onChangeText={e => {
-                  setPasengers(e);
+                  setPassengers(e);
                   inputFilled = true;
                 }}
               />
@@ -139,11 +160,10 @@ export default function App(props) {
       </View>
     );
   }
+
   return (
     <View style={Appstyles.BookingBody}>
-      <Pressable
-        onPress={() => props.navigation.goBack()}
-        style={Appstyles.BackButton}>
+      <Pressable onPress={() => btnBackPressed()} style={Appstyles.BackButton}>
         <Text style={Appstyles.BackButtonText}>Back</Text>
       </Pressable>
       <View style={Appstyles.BookingBodyContainer}>
@@ -156,8 +176,8 @@ export default function App(props) {
             title="Next"
             style={Appstyles.NextButton}
             onPress={() => {
-              setScreen(screen + 1);
-              inputFilled = false;
+              inputFilled = true;
+              pressed();
             }}
             //disabled={!inputFilled}
           ></Button>
@@ -166,8 +186,7 @@ export default function App(props) {
             title="Finish"
             style={Appstyles.NextButton}
             onPress={() => {
-              setScreen(screen + 1);
-              inputFilled = false;
+              props.navigation.navigate('Home');
             }}
             //disabled={!inputFilled}
           ></Button>
