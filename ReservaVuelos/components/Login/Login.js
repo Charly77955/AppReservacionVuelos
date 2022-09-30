@@ -3,11 +3,13 @@ import {Text,
         View, 
         SafeAreaView, 
         TextInput, 
-        TouchableOpacity} from 'react-native';
+        TouchableOpacity,
+        ImageBackground,
+        StyleSheet} from 'react-native';
 import Appstyles from './Login.sass'
-import {ButtonGoogle} from './ButtonGoogle'
+import GoogleSignIn from './GoogleSignIn'
 import {CheckBox, Button, Icon} from '@rneui/themed';
-import { handleCreateAcount, handleSignIn } from './AuthAcount';
+import  {handleCreateAcount, handleSignIn}  from './AuthAcount';
 
 export default function Login() {
   const [check1, setCheck1] = useState(false);
@@ -43,6 +45,7 @@ export default function Login() {
         secureTextEntry: !data.secureTextEntry
     });
   }
+const image = {uri: "https://media.istockphoto.com/photos/white-lines-and-spheres-picture-id1135638647?b=1&k=20&m=1135638647&s=170667a&w=0&h=j32QwPBMCmdX9ViKWvitis6N3l3Wl-lBEl1Ut9ImiBk="}
   return (
     <SafeAreaView>
       <View style={Appstyles.LoginBody}>
@@ -110,7 +113,7 @@ export default function Login() {
           <Button
             title="Register"
             color="blue"
-            onPress={handleCreateAcount}/>
+            onPress={()=>handleCreateAcount(email, password)}/>
         </View>
 
         <View style={Appstyles.ButtonSignContainer}>
@@ -118,12 +121,13 @@ export default function Login() {
             title="Login"
             color="blue"
             disabled={false}
-            onPress={handleSignIn}/>
+            onPress={(props)=>handleSignIn(props,email,password)}/>
         </View>
         <Text>or</Text>
         <View style={Appstyles.ButtonSignContainer}>
-          <ButtonGoogle/>
+           <GoogleSignIn/> 
         </View>
+       
       </View>
     </SafeAreaView>
   );
