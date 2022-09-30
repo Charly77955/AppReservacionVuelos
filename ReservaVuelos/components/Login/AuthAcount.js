@@ -1,10 +1,12 @@
 import React from 'react';
-import auth from '@react-native-firebase/auth';
 import { 
+    getAuth,
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword} from 'firebase/auth';
 
-  export const handleCreateAcount = () =>{
+    
+  export const handleCreateAcount = (email, password) =>{
+    const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential)=>{
       alert('Acount created!')
@@ -14,7 +16,7 @@ import {
       alert(error)
     })
   }
-  export const handleSignIn = (props) =>{
+  export const handleSignIn = (props, email, password) =>{
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential)=>{
       alert('Signed in!')
