@@ -5,42 +5,38 @@ import auth from '@react-native-firebase/auth';
 // import {API_URL} from '@env';
 
 
-const GoogleSignIn = (props) => {
+const GoogleSignInComponent = (props) => {
   const [loading, setLoading] = useState(false)
   const [userInfo, setUserInfo] = useState();
 
   useEffect(() => {
     GoogleSignin.configure({
-      webClientId:"AIzaSyB2bNskB-zUQaP6wa-IPTltqohLSOYjDvc",
+      webClientId:"461005498193-4s77ebsk8tmqv35cmfl6o8eb02q1npnh.apps.googleusercontent.com",
     });
   }, [])
   
 
-  const googleSignIn = async () => {
-    setLoading(true)
-    const { idToken } = await GoogleSignin.signIn().catch((e) => {
-      console.log(e.message)
-      setLoading(false)
-    });
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    await auth().signInWithCredential(googleCredential)
-      .then((res) => {
-        setUserInfo(res);
-      }).catch((e) => {
-        alert(e.message)
-      });
-    const accessToken = (await GoogleSignin.getTokens()).accessToken;
-    setLoading(false)
-    props.navigation.navigate('Home')
-  }
-  const googleSignOut = async () => {
-    setLoading(true)
-    auth().signOut().then(async () => {
-      await GoogleSignin.signOut();
-      await GoogleSignin.revokeAccess();
-      alert('User sign-out successfully!');
-    }).catch(e => alert(e.message));
-    setLoading(false)
+  const onGoogleButtonPress = async () => {
+    try {
+        await GoogleSignin.hasPlayServices();
+        const userInfo = await GoogleSignin.signIn();
+        console.log(userInfo);
+      } catch (error) {
+        if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+          alert('You cancelled the sign in.');
+        } else if (error.code === statusCodes.IN_PROGRESS) {
+          alert('Google sign In operation is in process');
+        } else if (
+          error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE
+        ) {
+          alert('Play Services not available');
+        } else {
+          alert(
+            'Something unknown went wrong with Google sign in. ' +
+              error.message,
+          );
+        }
+      }
   }
 
   return (
@@ -50,13 +46,12 @@ const GoogleSignIn = (props) => {
         style={{ width: 192, height: 48 }}
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Dark}
-        onPress={googleSignIn}
+        onPress={() => onGoogleButtonPress().then(() => {
+          console.log('Signed in with Google!')
+        
+        })}
         disabled={loading}
       />
-      <Button
-        loading={loading}
-        title={'Google Sign-Out'}
-        onPress={googleSignOut} />
     </View>
   )
 }
@@ -74,4 +69,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default GoogleSignIn;
+export default GoogleSignInComponent;

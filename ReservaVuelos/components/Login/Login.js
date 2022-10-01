@@ -7,7 +7,7 @@ import {Text,
         ImageBackground,
         StyleSheet} from 'react-native';
 import Appstyles from './Login.sass'
-import GoogleSignIn from './GoogleSignIn'
+import GoogleSignInComponent from './GoogleSignIn'
 import {CheckBox, Button, Icon} from '@rneui/themed';
 import  {handleCreateAcount, handleSignIn}  from './AuthAcount';
 
@@ -45,7 +45,7 @@ export default function Login() {
         secureTextEntry: !data.secureTextEntry
     });
   }
-const image = {uri: "https://media.istockphoto.com/photos/white-lines-and-spheres-picture-id1135638647?b=1&k=20&m=1135638647&s=170667a&w=0&h=j32QwPBMCmdX9ViKWvitis6N3l3Wl-lBEl1Ut9ImiBk="}
+// const image = {uri: "https://media.istockphoto.com/photos/white-lines-and-spheres-picture-id1135638647?b=1&k=20&m=1135638647&s=170667a&w=0&h=j32QwPBMCmdX9ViKWvitis6N3l3Wl-lBEl1Ut9ImiBk="}
   return (
     <SafeAreaView>
       <View style={Appstyles.LoginBody}>
@@ -125,7 +125,7 @@ const image = {uri: "https://media.istockphoto.com/photos/white-lines-and-sphere
         </View>
         <Text>or</Text>
         <View style={Appstyles.ButtonSignContainer}>
-           <GoogleSignIn/> 
+           <GoogleSignInComponent/> 
         </View>
        
       </View>
