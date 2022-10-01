@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, alert, Button } from 'react-native';
 import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-google-signin/google-signin';
-import auth from '@react-native-firebase/auth';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 // import {API_URL} from '@env';
 
 
