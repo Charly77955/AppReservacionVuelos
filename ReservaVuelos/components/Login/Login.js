@@ -11,7 +11,7 @@ import GoogleSignInComponent from './GoogleSignIn'
 import {CheckBox, Button, Icon} from '@rneui/themed';
 import  {handleCreateAcount, handleSignIn}  from './AuthAcount';
 
-export default function Login() {
+export default function Login(props) {
   const [check1, setCheck1] = useState(false);
   const [check2, setCheck2] = useState(false);
   const [email, setEmail] = useState("");
@@ -118,15 +118,14 @@ export default function Login() {
           <Button
             title="Register"
             color="blue"
-            onPress={()=>handleCreateAcount(email, password)}/>
+            onPress={()=>handleCreateAcount(props, email, password)}/>
         </View>
 
         <View style={Appstyles.ButtonSignContainer}>
           <Button
             title="Login"
             color="blue"
-            disabled={false}
-            onPress={(props)=>handleSignIn(props,email,password)}/>
+            onPress={()=>handleSignIn(props, email,password)}/>
         </View>
         <Text>or</Text>
         <View style={Appstyles.ButtonSignContainer}>

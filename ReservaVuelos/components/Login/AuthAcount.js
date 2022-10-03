@@ -1,14 +1,10 @@
 import React from 'react';
 import { Alert } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import { 
-    createUserWithEmailAndPassword, 
-    signInWithEmailAndPassword} from 'firebase/auth';
 
-  export const handleCreateAcount = (email, password) =>{
-    console.log(email + ", " + password)
+  export const handleCreateAcount = (props,email, password) =>{
     auth()
-      .createUserWithEmailAndPassword(props, email, password)
+      .createUserWithEmailAndPassword(email, password)
       .then(() => {
         alert('User account created & signed in!');
         props.navigation.navigate('Home')
@@ -23,13 +19,13 @@ import {
         }
       });
   }
-  export const handleSignIn = (props,email, password) =>{
-    signInWithEmailAndPassword(auth, email, password)
+  export const handleSignIn = (props, email, password) =>{ 
+    auth().signInWithEmailAndPassword(email, password)
     .then((userCredential)=>{
-      
+      console.log(auth, email, password)
       alert('Signed in!')
       const user = userCredential.user;
-      props.navigation.navigate('Home')  
+      props.navigation.navigate('Home')
     })
     .catch(error => {
       alert(error)

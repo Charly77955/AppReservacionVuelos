@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, alert, Button } from 'react-native';
+import { View, StyleSheet, Button } from 'react-native';
+import { Alert } from 'react-native';
 import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-google-signin/google-signin';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-// import {API_URL} from '@env';
 
-
-const GoogleSignInComponent = (props) => {
+const GoogleSignInComponent = () => {
   const [loading, setLoading] = useState(false)
-  const [userInfo, setUserInfo] = useState();
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -16,12 +12,10 @@ const GoogleSignInComponent = (props) => {
     });
   }, [])
   
-
   const onGoogleButtonPress = async () => {
     try {
         await GoogleSignin.hasPlayServices();
         const userInfo = await GoogleSignin.signIn();
-        console.log(userInfo);
       } catch (error) {
         if (error.code === statusCodes.SIGN_IN_CANCELLED) {
           alert('You cancelled the sign in.');
@@ -39,7 +33,6 @@ const GoogleSignInComponent = (props) => {
         }
       }
   }
-
   return (
     <View style={styles.separator}>
      
@@ -48,15 +41,13 @@ const GoogleSignInComponent = (props) => {
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Dark}
         onPress={() => onGoogleButtonPress().then(() => {
-          console.log('Signed in with Google!')
-        
-        })}
+          alert('Signed in with Google!')
+           })}
         disabled={loading}
       />
     </View>
   )
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -69,5 +60,4 @@ const styles = StyleSheet.create({
     borderColor: 'gray'
   },
 })
-
 export default GoogleSignInComponent;
