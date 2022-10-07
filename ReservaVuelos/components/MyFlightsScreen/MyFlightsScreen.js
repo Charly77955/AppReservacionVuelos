@@ -1,9 +1,10 @@
 import * as React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import MyFlightsStyles from './MyFlightsScreen.sass';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Avatar, Icon} from "@rneui/themed";
+import {Avatar, Icon} from '@rneui/themed';
+import {getData} from '../../database-service/ReservacionVuelos.service';
+import Moment from 'moment';
+import auth from '@react-native-firebase/auth';
 
 export default MyFlightsScreen = props => {
   return (

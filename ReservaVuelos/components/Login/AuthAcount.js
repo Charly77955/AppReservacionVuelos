@@ -21,11 +21,20 @@ import auth from '@react-native-firebase/auth';
   }
   export const handleSignIn = (props, email, password) =>{ 
     auth().signInWithEmailAndPassword(email, password)
-    .then((userCredential)=>{
-      console.log(auth, email, password)
+    .then((userCredential)=>{ 
       alert('Signed in!')
       const user = userCredential.user;
       props.navigation.navigate('Home')
+    })
+    .catch(error => {
+      alert(error)
+    })
+  }
+  export const handleLogOut = (props) =>{ 
+    auth().signOut()
+    .then(()=>{
+      alert('Log Out!')
+      props.navigation.navigate('Login')
     })
     .catch(error => {
       alert(error)

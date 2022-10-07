@@ -8,11 +8,11 @@ import {
   Button,
 } from 'react-native';
 import Appstyles from './Booking.sass';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DatePicker from 'react-native-date-picker';
 import Moment from 'moment';
 import FlightClass from '../Flight.class';
+import auth from '@react-native-firebase/auth';
+import { handleLogOut } from '../Login/AuthAcount';
 
 export default function App(props) {
   const [fromCountry, setFromCountry] = useState('Country1');
@@ -179,18 +179,25 @@ export default function App(props) {
               inputFilled = true;
               pressed();
             }}
-            //disabled={!inputFilled}
-          ></Button>
+          
+          ></Button>        
         ) : (
           <Button
             title="Finish"
             style={Appstyles.NextButton}
             onPress={() => {
               props.navigation.navigate('Home');
-            }}
-            //disabled={!inputFilled}
-          ></Button>
+            }}  
+          ></Button>    
         )}
+        <View style={Appstyles.ButtonOut}>
+                  <Button
+                      title="Log Out"
+                      color="blue"
+                      onPress={() => handleLogOut(props)}
+                      />
+        </View>
+
       </View>
     </View>
   );
